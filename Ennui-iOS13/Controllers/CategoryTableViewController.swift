@@ -116,7 +116,13 @@ class CategoryTableViewController: SwipeTableViewController {
             print ("There was an error")
         }
     }
-
+    
+    //MARK: Save Checklist Method
+    
+    
+    @IBAction func saveChecklist(_ sender: UIBarButtonItem) {
+    }
+    
     //MARK: - Add Categories Method
     
     func addCategories() {
