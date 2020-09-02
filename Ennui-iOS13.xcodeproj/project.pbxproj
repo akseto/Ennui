@@ -14,10 +14,9 @@
 		F418250D24F46CE3006E7141 /* Ennui_iOS13.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F418250B24F46CE3006E7141 /* Ennui_iOS13.xcdatamodeld */; };
 		F418250F24F46CE8006E7141 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F418250E24F46CE8006E7141 /* Assets.xcassets */; };
 		F418251224F46CE8006E7141 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F418251024F46CE8006E7141 /* LaunchScreen.storyboard */; };
-		F418251D24F46E86006E7141 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F418251C24F46E86006E7141 /* CategoryTableViewController.swift */; };
-		F418252024F46EB8006E7141 /* ChecklistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F418251E24F46EB8006E7141 /* ChecklistTableViewController.swift */; };
 		F418252524F471D2006E7141 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = F418252424F471D2006E7141 /* Fonts */; };
 		F418252A24F47972006E7141 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F418252824F47971006E7141 /* DataModel.xcdatamodeld */; };
+		F43BBD4B24FEF6950071AA39 /* ConsolidatedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43BBD4A24FEF6950071AA39 /* ConsolidatedTableViewController.swift */; };
 		F461D6B024F5C1ED008624CF /* WelcomeTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F461D6AF24F5C1ED008624CF /* WelcomeTableTableViewController.swift */; };
 		F461D6B224F5CB5C008624CF /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F461D6B124F5CB5C008624CF /* SwipeTableViewController.swift */; };
 		F48B641124F7128B003CC500 /* NewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48B640F24F7128B003CC500 /* NewList.swift */; };
@@ -38,10 +37,9 @@
 		F418250E24F46CE8006E7141 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F418251124F46CE8006E7141 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F418251324F46CE8006E7141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F418251C24F46E86006E7141 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
-		F418251E24F46EB8006E7141 /* ChecklistTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistTableViewController.swift; sourceTree = "<group>"; };
 		F418252424F471D2006E7141 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		F418252924F47971006E7141 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		F43BBD4A24FEF6950071AA39 /* ConsolidatedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsolidatedTableViewController.swift; sourceTree = "<group>"; };
 		F461D6AF24F5C1ED008624CF /* WelcomeTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeTableTableViewController.swift; sourceTree = "<group>"; };
 		F461D6B124F5CB5C008624CF /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		F48B640F24F7128B003CC500 /* NewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewList.swift; sourceTree = "<group>"; };
@@ -130,8 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				F461D6AF24F5C1ED008624CF /* WelcomeTableTableViewController.swift */,
-				F418251C24F46E86006E7141 /* CategoryTableViewController.swift */,
-				F418251E24F46EB8006E7141 /* ChecklistTableViewController.swift */,
+				F43BBD4A24FEF6950071AA39 /* ConsolidatedTableViewController.swift */,
 				F461D6B124F5CB5C008624CF /* SwipeTableViewController.swift */,
 			);
 			path = Controllers;
@@ -265,14 +262,13 @@
 			files = (
 				F461D6B224F5CB5C008624CF /* SwipeTableViewController.swift in Sources */,
 				F48B641124F7128B003CC500 /* NewList.swift in Sources */,
+				F43BBD4B24FEF6950071AA39 /* ConsolidatedTableViewController.swift in Sources */,
 				F461D6B024F5C1ED008624CF /* WelcomeTableTableViewController.swift in Sources */,
 				F418250D24F46CE3006E7141 /* Ennui_iOS13.xcdatamodeld in Sources */,
 				F4918DC324F9A70E004CAFA2 /* ItemCell.swift in Sources */,
 				F418250324F46CE3006E7141 /* AppDelegate.swift in Sources */,
 				F418252A24F47972006E7141 /* DataModel.xcdatamodeld in Sources */,
 				F418250524F46CE3006E7141 /* SceneDelegate.swift in Sources */,
-				F418251D24F46E86006E7141 /* CategoryTableViewController.swift in Sources */,
-				F418252024F46EB8006E7141 /* ChecklistTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
