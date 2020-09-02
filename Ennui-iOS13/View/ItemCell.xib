@@ -25,8 +25,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="hAW-Vu-zgH">
-                                <rect key="frame" x="0.0" y="28.5" width="322" height="44.5"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="hAW-Vu-zgH">
+                                <rect key="frame" x="0.0" y="28.5" width="322" height="32"/>
                                 <segments>
                                     <segment title="Good"/>
                                     <segment title="Fair"/>
@@ -37,22 +37,25 @@
                                     <action selector="itemCondition:" destination="KGk-i7-Jjw" eventType="valueChanged" id="PQY-P4-Uwb"/>
                                 </connections>
                             </segmentedControl>
-                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comments" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cg4-UC-RTj">
-                                <rect key="frame" x="0.0" y="80" width="322" height="34"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qLF-9z-l4u">
+                                <rect key="frame" x="0.0" y="67.5" width="322" height="46.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                            </textView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="qLF-9z-l4u" firstAttribute="top" secondItem="hAW-Vu-zgH" secondAttribute="bottom" constant="8" id="0p6-2h-WA0"/>
                             <constraint firstAttribute="trailing" secondItem="hAW-Vu-zgH" secondAttribute="trailing" id="98i-MN-JeW"/>
-                            <constraint firstAttribute="trailing" secondItem="cg4-UC-RTj" secondAttribute="trailing" id="NUF-7X-u5h"/>
+                            <constraint firstItem="qLF-9z-l4u" firstAttribute="leading" secondItem="ygj-3J-WlI" secondAttribute="leading" id="DLh-lS-5rk"/>
                             <constraint firstItem="hAW-Vu-zgH" firstAttribute="leading" secondItem="ygj-3J-WlI" secondAttribute="leading" id="RYH-5U-lqI"/>
-                            <constraint firstItem="cg4-UC-RTj" firstAttribute="top" secondItem="hAW-Vu-zgH" secondAttribute="bottom" constant="8" id="Re3-NB-SIY"/>
                             <constraint firstItem="hAW-Vu-zgH" firstAttribute="top" secondItem="hL4-pi-eyM" secondAttribute="bottom" constant="8" id="Ugd-Z9-BmA"/>
                             <constraint firstItem="hL4-pi-eyM" firstAttribute="leading" secondItem="ygj-3J-WlI" secondAttribute="leading" id="dNM-lf-WQV"/>
                             <constraint firstAttribute="trailing" secondItem="hL4-pi-eyM" secondAttribute="trailing" id="jNO-vl-dmD"/>
-                            <constraint firstAttribute="bottom" secondItem="cg4-UC-RTj" secondAttribute="bottom" id="txV-3U-LTW"/>
-                            <constraint firstItem="cg4-UC-RTj" firstAttribute="leading" secondItem="ygj-3J-WlI" secondAttribute="leading" id="xQG-3L-9Ge"/>
+                            <constraint firstAttribute="trailing" secondItem="qLF-9z-l4u" secondAttribute="trailing" id="vX7-8N-vqU"/>
+                            <constraint firstAttribute="bottom" secondItem="qLF-9z-l4u" secondAttribute="bottom" id="zHT-CJ-OcQ"/>
                         </constraints>
                     </stackView>
                 </subviews>
@@ -67,9 +70,9 @@
             <connections>
                 <outlet property="condition" destination="hAW-Vu-zgH" id="IJ9-XC-gJA"/>
                 <outlet property="itemName" destination="hL4-pi-eyM" id="Hee-zZ-5hq"/>
-                <outlet property="itemTextField" destination="cg4-UC-RTj" id="XTv-Kb-JKQ"/>
+                <outlet property="itemTextView" destination="qLF-9z-l4u" id="2j9-Io-06G"/>
             </connections>
-            <point key="canvasLocation" x="147.82608695652175" y="122.54464285714285"/>
+            <point key="canvasLocation" x="147.19999999999999" y="122.33883058470765"/>
         </tableViewCell>
     </objects>
 </document>

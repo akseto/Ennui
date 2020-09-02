@@ -10,9 +10,9 @@ import UIKit
 import CoreData
 
 class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewDelegate {
-
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    
     var categories = [Category]()
     var items = [Item]()
     var generalCategory = [Item]()
@@ -32,13 +32,14 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = selectedList?.premises
         tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "cell")
     }
     
-
-
+    
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         itemArrays = [generalCategory, officeCategory, kitchenCategory, washroomCategory, warehouseCategory]
         return itemArrays.count
@@ -74,7 +75,8 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         
         cell.delegate = self
         cell.itemName.text = itemArrays[indexPath.section][indexPath.row].title
-        cell.itemTextField.text = itemArrays[indexPath.section][indexPath.row].comments
+        cell.itemTextView.text = itemArrays[indexPath.section][indexPath.row].comments
+        
         switch itemArrays[indexPath.section][indexPath.row].selectedSegment {
         case "Good":
             cell.condition.selectedSegmentIndex = 0
@@ -93,24 +95,37 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     }
     
 
-    //MARK: - ItemCell Manipulation Methods
-        func didSelectSegmentControlCell(cell: ItemCell) {
-            
-            if let indexPath = tableView.indexPath(for: cell) {
-                itemArrays[indexPath.section][indexPath.row].selectedSegment = cell.condition.titleForSegment(at: cell.condition.selectedSegmentIndex)
-            }
-            saveItems()
-        }
+    
+    
+    //MARK: - ItemCell Delegate Methods
+    func didSelectSegmentControlCell(cell: ItemCell) {
         
-        func textFieldDidEndEditing(cell: ItemCell) {
-            if let indexPath = tableView.indexPath(for: cell) {
-                itemArrays[indexPath.section][indexPath.row].comments = cell.itemTextField.text
-                print("textFieldDidEndEditing triggered")
-                cell.itemTextField.endEditing(true)
-            }
-            saveItems()
+        if let indexPath = tableView.indexPath(for: cell) {
+            itemArrays[indexPath.section][indexPath.row].selectedSegment = cell.condition.titleForSegment(at: cell.condition.selectedSegmentIndex)
         }
-
+        saveItems()
+    }
+    
+    
+    func textViewDidChange(cell: ItemCell) {
+        cell.itemTextView.textContainer.heightTracksTextView = true
+        cell.itemTextView.isScrollEnabled = false
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+    }
+    func textViewDidEndEditing(cell: ItemCell) {
+        cell.itemTextView.resignFirstResponder()
+        if let indexPath = tableView.indexPath(for: cell) {
+            itemArrays[indexPath.section][indexPath.row].comments = cell.itemTextView.text
+            print("textFieldDidEndEditing triggered")
+            cell.itemTextView.endEditing(true)
+        }
+        saveItems()
+    }
+    
+    
+    
+    
     //MARK: - Model Manipulation Methods
     
     func loadItems() {
@@ -160,6 +175,6 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         }
         print("items sorted")
     }
-
-
+    
+    
 }

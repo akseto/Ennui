@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ItemCell: UITableViewCell, UITextFieldDelegate {
+class ItemCell: UITableViewCell, UITextViewDelegate {
     
     var delegate: ItemCellTableViewDelegate?
     
@@ -20,33 +20,42 @@ class ItemCell: UITableViewCell, UITextFieldDelegate {
         delegate?.didSelectSegmentControlCell(cell: self)
     }
     
-    @IBOutlet weak var itemTextField: UITextField!
+
+    @IBOutlet weak var itemTextView: UITextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        itemTextField.delegate = self
+        itemTextView.delegate = self
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-         delegate?.textFieldDidEndEditing(cell: self)
-     }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        itemTextField.endEditing(true)
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        itemTextView.endEditing(true)
         return true
     }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        delegate?.textViewDidChange(cell: self)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        delegate?.textViewDidEndEditing(cell: self)
+        resignFirstResponder()
+    }
+    
     
     
 }
 
 protocol ItemCellTableViewDelegate {
     func didSelectSegmentControlCell(cell: ItemCell)
-    func textFieldDidEndEditing(cell: ItemCell)
+    func textViewDidChange(cell: ItemCell)
+    func textViewDidEndEditing(cell: ItemCell)
+    
 }
 
