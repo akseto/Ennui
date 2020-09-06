@@ -20,17 +20,10 @@
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="773-H0-Poq">
                         <rect key="frame" x="10" y="10" width="337" height="84"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tenantName" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mbX-sN-qxe">
-                                <rect key="frame" x="10" y="17" width="327" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="buildingName" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mbX-sN-qxe">
+                                <rect key="frame" x="10" y="17" width="327" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="premises " textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Wnk-S7-7Hg">
-                                <rect key="frame" x="12" y="37" width="327" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -53,9 +46,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="date" destination="xap-rZ-jdp" id="06C-Rg-PAC"/>
-                <outlet property="premises" destination="Wnk-S7-7Hg" id="USf-Lh-1dR"/>
-                <outlet property="tenantName" destination="mbX-sN-qxe" id="efy-F9-oxM"/>
+                <outlet property="buildingName" destination="mbX-sN-qxe" id="0nl-xb-eJX"/>
+                <outlet property="date" destination="xap-rZ-jdp" id="ix3-ke-1T4"/>
             </connections>
             <point key="canvasLocation" x="27.536231884057973" y="129.57589285714286"/>
         </tableViewCell>

@@ -11,10 +11,9 @@ import SwipeCellKit
 
 class NewList: SwipeTableViewCell {
 
-    @IBOutlet weak var tenantName: UILabel!
+  
+    @IBOutlet weak var buildingName: UILabel!
     
-    @IBOutlet weak var premises: UILabel!
-        
     @IBOutlet weak var date: UILabel!
     
     override func awakeFromNib() {

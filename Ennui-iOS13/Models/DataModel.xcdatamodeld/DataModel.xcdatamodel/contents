@@ -6,11 +6,11 @@
         <relationship name="parentList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lists" inverseName="categories" inverseEntity="Lists"/>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="categoryIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="categoryName" optional="YES" attributeType="String"/>
         <attribute name="comments" optional="YES" attributeType="String"/>
         <attribute name="itemIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="position" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="premisesIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="premisesName" optional="YES" attributeType="String"/>
         <attribute name="selectedSegment" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="parentCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="items" inverseEntity="Category"/>
@@ -19,7 +19,11 @@
     <entity name="Lists" representedClassName="Lists" syncable="YES" codeGenerationType="class">
         <attribute name="buildingName" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="String"/>
-        <attribute name="premises" optional="YES" attributeType="String"/>
+        <attribute name="premises1" optional="YES" attributeType="String"/>
+        <attribute name="premises2" optional="YES" attributeType="String"/>
+        <attribute name="premises3" optional="YES" attributeType="String"/>
+        <attribute name="premises4" optional="YES" attributeType="String"/>
+        <attribute name="premises5" optional="YES" attributeType="String"/>
         <attribute name="tenantName" optional="YES" attributeType="String"/>
         <relationship name="categories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Category" inverseName="parentList" inverseEntity="Category"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="parentList" inverseEntity="Item"/>
@@ -27,6 +31,6 @@
     <elements>
         <element name="Category" positionX="-231.47265625" positionY="8.921875" width="128" height="88"/>
         <element name="Item" positionX="-54" positionY="-9" width="128" height="178"/>
-        <element name="Lists" positionX="-398.18359375" positionY="8.71875" width="128" height="133"/>
+        <element name="Lists" positionX="-398.18359375" positionY="8.71875" width="128" height="193"/>
     </elements>
 </model>

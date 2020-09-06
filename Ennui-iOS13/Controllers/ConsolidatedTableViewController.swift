@@ -15,24 +15,25 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     
     var categories = [Category]()
     var items = [Item]()
-    var generalCategory = [Item]()
-    var officeCategory = [Item]()
-    var washroomCategory = [Item]()
-    var kitchenCategory = [Item]()
-    var warehouseCategory = [Item]()
+    var premises1 = [Item]()
+    var premises2 = [Item]()
+    var premises3 = [Item]()
+    var premises4 = [Item]()
+    var premises5 = [Item]()
     var itemArrays = [[Item]]()
     
     var selectedList: Lists? {
         didSet {
             loadItems()
             sortItems()
+            itemArrays = appendItemArray()
             tableView.reloadData()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = selectedList?.premises
+        title = selectedList?.buildingName
         tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "cell")
     }
     
@@ -41,7 +42,6 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        itemArrays = [generalCategory, officeCategory, kitchenCategory, washroomCategory, warehouseCategory]
         return itemArrays.count
     }
     
@@ -49,20 +49,19 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         
         var sectionTitle = ""
         switch itemArrays[section] {
-        case generalCategory:
-            sectionTitle = "General"
-        case officeCategory:
-            sectionTitle = "Office"
-        case kitchenCategory:
-            sectionTitle = "Kitchen"
-        case washroomCategory:
-            sectionTitle = "Washroom"
-        case warehouseCategory:
-            sectionTitle = "Warehouse"
+        case premises1:
+            sectionTitle = selectedList!.premises1!
+        case premises2:
+            sectionTitle = selectedList!.premises2!
+        case premises4:
+            sectionTitle = selectedList!.premises3!
+        case premises3:
+            sectionTitle = selectedList!.premises4!
+        case premises5:
+            sectionTitle = selectedList!.premises5!
         default:
             break
         }
-        
         return sectionTitle
     }
     
@@ -131,7 +130,7 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     func loadItems() {
         
         let request: NSFetchRequest<Item> = Item.fetchRequest()
-        let listPredicate = NSPredicate(format: "parentList.premises MATCHES %@", selectedList!.premises!)
+        let listPredicate = NSPredicate(format: "parentList.buildingName MATCHES %@", selectedList!.buildingName!)
         request.predicate = listPredicate
         
         do {
@@ -151,27 +150,57 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         }
     }
     
+    func appendItemArray () -> [[Item]] {
+        if selectedList!.premises1 != nil {
+            itemArrays.append(premises1)
+        }
+        if selectedList!.premises2 != nil {
+            itemArrays.append(premises2)
+        }
+        if selectedList!.premises3 != nil {
+            itemArrays.append(premises3)
+        }
+        if selectedList!.premises4 != nil {
+            itemArrays.append(premises4)
+        }
+        if selectedList!.premises5 != nil {
+            itemArrays.append(premises5)
+        }
+        
+        return itemArrays
+    }
+    
     func sortItems() {
         for item in items {
-            switch item.categoryIndex {
+            switch item.premisesIndex {
             case 0:
-                generalCategory.append(item)
+                if selectedList!.premises1 != nil {
+                    premises1.append(item)
+                    premises1.sort(by: { $0.itemIndex < $1.itemIndex })
+                }
             case 1:
-                officeCategory.append(item)
+                if selectedList!.premises2 != nil {
+                    premises2.append(item)
+                    premises2.sort(by: { $0.itemIndex < $1.itemIndex })
+                }
             case 2:
-                kitchenCategory.append(item)
+                if selectedList!.premises3 != nil {
+                    premises3.append(item)
+                    premises3.sort(by: { $0.itemIndex < $1.itemIndex })
+                }
             case 3:
-                washroomCategory.append(item)
+                if selectedList!.premises4 != nil {
+                    premises4.append(item)
+                    premises4.sort(by: { $0.itemIndex < $1.itemIndex })
+                }
             case 4:
-                warehouseCategory.append(item)
+                if selectedList!.premises5 != nil {
+                    premises5.append(item)
+                    premises5.sort(by: { $0.itemIndex < $1.itemIndex })
+                }
             default:
                 break
             }
-            generalCategory.sort(by: { $0.itemIndex < $1.itemIndex })
-            officeCategory.sort(by: { $0.itemIndex < $1.itemIndex })
-            washroomCategory.sort(by: { $0.itemIndex < $1.itemIndex })
-            kitchenCategory.sort(by: { $0.itemIndex < $1.itemIndex })
-            warehouseCategory.sort(by: { $0.itemIndex < $1.itemIndex })
         }
         print("items sorted")
     }
