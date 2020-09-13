@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import PDFGenerator
+import PDFKit
 
 class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewDelegate {
     
@@ -21,6 +23,7 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     var premises4 = [Item]()
     var premises5 = [Item]()
     var itemArrays = [[Item]]()
+    
     
     var selectedList: Lists? {
         didSet {
@@ -53,9 +56,9 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
             sectionTitle = selectedList!.premises1!
         case premises2:
             sectionTitle = selectedList!.premises2!
-        case premises4:
-            sectionTitle = selectedList!.premises3!
         case premises3:
+            sectionTitle = selectedList!.premises3!
+        case premises4:
             sectionTitle = selectedList!.premises4!
         case premises5:
             sectionTitle = selectedList!.premises5!
@@ -93,8 +96,11 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         
     }
     
-
-    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        generatePDF()
+        
+    }
+  
     
     //MARK: - ItemCell Delegate Methods
     func didSelectSegmentControlCell(cell: ItemCell) {
@@ -111,6 +117,7 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         cell.itemTextView.isScrollEnabled = false
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
+        saveItems()
     }
     func textViewDidEndEditing(cell: ItemCell) {
         cell.itemTextView.resignFirstResponder()
@@ -121,9 +128,6 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         }
         saveItems()
     }
-    
-    
-    
     
     //MARK: - Model Manipulation Methods
     
@@ -151,19 +155,19 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     }
     
     func appendItemArray () -> [[Item]] {
-        if selectedList!.premises1 != nil {
+        if selectedList!.premises1 != "" {
             itemArrays.append(premises1)
         }
-        if selectedList!.premises2 != nil {
+        if selectedList!.premises2 != "" {
             itemArrays.append(premises2)
         }
-        if selectedList!.premises3 != nil {
+        if selectedList!.premises3 != "" {
             itemArrays.append(premises3)
         }
-        if selectedList!.premises4 != nil {
+        if selectedList!.premises4 != "" {
             itemArrays.append(premises4)
         }
-        if selectedList!.premises5 != nil {
+        if selectedList!.premises5 != "" {
             itemArrays.append(premises5)
         }
         
@@ -204,6 +208,69 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         }
         print("items sorted")
     }
+    
+    //MARK: - Generate PDF using Internet Inquiries
+    
+    func createPdfFromTableView() -> NSMutableData {
+        let priorBounds: CGRect = self.tableView.bounds
+        let fittedSize: CGSize = self.tableView.sizeThatFits(CGSize(width: priorBounds.size.width, height: self.tableView.contentSize.height))
+        self.tableView.bounds = CGRect(x: 0, y: 0, width: fittedSize.width, height: fittedSize.height)
+        self.tableView.reloadData()
+        let pdfPageBounds: CGRect = CGRect(x: 0, y: 0, width: fittedSize.width, height: (fittedSize.height))
+        let pdfData: NSMutableData = NSMutableData()
+        UIGraphicsBeginPDFContextToData(pdfData, pdfPageBounds, nil)
+        UIGraphicsBeginPDFPageWithInfo(pdfPageBounds, nil)
+        self.tableView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        UIGraphicsEndPDFContext()
+        let documentDirectories = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
+        let documentsFileName = documentDirectories! + "/" + "pdfName"
+        pdfData.write(toFile: documentsFileName, atomically: true)
+        print(documentsFileName)
+        return pdfData
+    }
+
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      // This method creates the PDF when the user calls the segue on the Preview button. It passes the PDF data to the destination PDFPreviewViewController.
+      if segue.identifier == "PreviewVC" {
+        guard let vc = segue.destination as? PDFPreviewVC else { return }
+        vc.documentData = createPdfFromTableView()
+      }
+    }
+    
+    @IBAction func shareButton(_ sender: UIBarButtonItem) {
+        
+        let documentData = createPdfFromTableView()
+        let vc = UIActivityViewController(activityItems: [documentData], applicationActivities: [])
+        present(vc, animated: true, completion: nil) 
+    }
+    
+    
+    
+    //MARK: - Generate PDF from TableView - PDFGenerator
+
+//    @objc fileprivate func generatePDF() {
+//        do {
+//            let dst = NSHomeDirectory() + "/sample_tblview.pdf"
+//            try PDFGenerator.generate(self.tableView, to: dst)
+//            openPDFViewer(dst)
+//        } catch let error {
+//            print(error)
+//        }
+//
+//    }
+//
+//    fileprivate func openPDFViewer(_ pdfPath: String) {
+//        self.performSegue(withIdentifier: "PreviewVC", sender: pdfPath)
+//    }
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let pdfPreviewVC = segue.destination as? PDFPreviewVC, let pdfPath = sender as? String {
+//            let url = URL(fileURLWithPath: pdfPath)
+//            pdfPreviewVC.setupWithURL(url)
+//        }
+//    }
+
     
     
 }

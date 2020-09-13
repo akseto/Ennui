@@ -20,8 +20,7 @@ class WelcomeTableTableViewController: SwipeTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        deleteAllRecords()
-//        loadLists()
+        loadLists()
         tableView.register(UINib(nibName: "NewList", bundle: nil), forCellReuseIdentifier: "reusableCell")
         print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
     
@@ -96,22 +95,20 @@ class WelcomeTableTableViewController: SwipeTableViewController {
         
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             let textField = alert.textFields![0] as UITextField
-            let textField2 = alert.textFields![1] as UITextField
-            let textField3 = alert.textFields![2] as UITextField
-            let textField4 = alert.textFields![3] as UITextField
-            let textField5 = alert.textFields![4] as UITextField
-            let textField6 = alert.textFields![5] as UITextField
-            let textField7 = alert.textFields![6] as UITextField
-            let textField8 = alert.textFields![7] as UITextField
+            let textField1 = alert.textFields![1] as UITextField
+            let textField2 = alert.textFields![2] as UITextField
+            let textField3 = alert.textFields![3] as UITextField
+            let textField4 = alert.textFields![4] as UITextField
+            let textField5 = alert.textFields![5] as UITextField
+            let textField6 = alert.textFields![6] as UITextField
             let newList = Lists(context: self.context)
-            newList.tenantName = textField.text!
-            newList.buildingName = textField2.text!
-            newList.date = textField3.text!
-            newList.premises1 = textField4.text!
-            newList.premises2 = textField5.text!
-            newList.premises3 = textField6.text!
-            newList.premises4 = textField7.text!
-            newList.premises5 = textField8.text!
+            newList.buildingName = textField.text!
+            newList.date = textField1.text!
+            newList.premises1 = textField2.text!
+            newList.premises2 = textField3.text!
+            newList.premises3 = textField4.text!
+            newList.premises4 = textField5.text!
+            newList.premises5 = textField6.text!
             self.lists.append(newList)
             self.addItems(selectedList: newList)
             self.saveLists()
@@ -120,10 +117,10 @@ class WelcomeTableTableViewController: SwipeTableViewController {
         }
         
         alert.addTextField{ (textField) in
-            textField.placeholder = "Tenant name"
+            textField.placeholder = "Building Name"
         }
         alert.addTextField { (textField) in
-            textField.placeholder = "Building name"
+            textField.placeholder = "Date"
         }
         alert.addTextField { (textField) in
             textField.placeholder = "Unit Name"
@@ -179,7 +176,7 @@ class WelcomeTableTableViewController: SwipeTableViewController {
         //we're going to override and update the superclass method, updateModels(at indexPath:) using the following block of code:
 
         let fetchRequest: NSFetchRequest<Lists> = Lists.fetchRequest()
-        fetchRequest.predicate = NSPredicate.init(format: "tenantName CONTAINS[cd] %@", lists[indexPath.row].tenantName!)
+        fetchRequest.predicate = NSPredicate.init(format: "buildingName CONTAINS[cd] %@", lists[indexPath.row].buildingName!)
         let objects = try! context.fetch(fetchRequest)
         for obj in objects {
             context.delete(obj)

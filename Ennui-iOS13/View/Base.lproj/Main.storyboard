@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -47,11 +48,61 @@
                             <outlet property="delegate" destination="nL3-L4-jZL" id="AS6-EN-dV0"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Viu-b1-nY5"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Viu-b1-nY5">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="save" id="syS-bf-Qti">
+                                <connections>
+                                    <segue destination="7EZ-VF-Zgq" kind="show" identifier="PreviewVC" id="AHO-4J-Z2i"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="square.and.arrow.up" catalog="system" id="3IE-v9-mjH">
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="shareButton:" destination="nL3-L4-jZL" id="5d9-HX-jCJ"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OIP-Oz-jbe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="184" y="51"/>
+        </scene>
+        <!--PreviewVC-->
+        <scene sceneID="zaB-Ub-SYG">
+            <objects>
+                <viewController id="7EZ-VF-Zgq" customClass="PDFPreviewVC" customModule="Ennui_iOS13" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8If-1u-Khk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hUN-pl-HYi" customClass="PDFView">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="FeU-r4-f1Y"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="ae1-mG-uGv">
+                        <barButtonItem key="rightBarButtonItem" title="Close" id="gJE-71-fFg">
+                            <connections>
+                                <action selector="close:" destination="7EZ-VF-Zgq" id="9Rr-ZG-LBs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="pdfView" destination="hUN-pl-HYi" id="64X-Xe-Tq1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HCx-8D-e3Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1060.8695652173915" y="50.892857142857139"/>
         </scene>
         <!--Ennui-->
         <scene sceneID="X1c-Nl-oXq">
@@ -94,4 +145,7 @@
             <point key="canvasLocation" x="-709" y="51"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
+    </resources>
 </document>
