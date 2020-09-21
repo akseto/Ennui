@@ -26,6 +26,10 @@ class ItemCell: UITableViewCell, UITextViewDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         itemTextView.delegate = self
+        if itemTextView.text.isEmpty {
+            itemTextView.text = "Add comment"
+            itemTextView.textColor = UIColor.gray
+        }
         
     }
 
@@ -34,9 +38,13 @@ class ItemCell: UITableViewCell, UITextViewDelegate {
 
     }
     
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        itemTextView.endEditing(true)
-        return true
+//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+//        itemTextView.endEditing(true)
+//        return true
+//    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        delegate?.textViewDidBeginEditing(cell: self)
     }
     
     func textViewDidChange(_ textView: UITextView) {
@@ -54,6 +62,7 @@ class ItemCell: UITableViewCell, UITextViewDelegate {
 
 protocol ItemCellTableViewDelegate {
     func didSelectSegmentControlCell(cell: ItemCell)
+    func textViewDidBeginEditing(cell: ItemCell)
     func textViewDidChange(cell: ItemCell)
     func textViewDidEndEditing(cell: ItemCell)
     

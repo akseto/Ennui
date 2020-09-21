@@ -10,8 +10,6 @@ target 'Ennui-iOS13' do
 pod 'SwipeCellKit'
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/wowansm/Chameleon.git', :branch => 'swift5'
 pod 'IQKeyboardManagerSwift'
-pod 'PDFGenerator', '~> 3.0'
-pod 'SwiftSignatureView'
 
 
 end

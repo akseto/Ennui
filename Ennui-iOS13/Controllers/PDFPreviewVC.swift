@@ -11,18 +11,19 @@ import WebKit
 import PDFKit
 
 class PDFPreviewVC: UIViewController {
-
+    
     @IBOutlet weak var pdfView: PDFView!
     
     public var documentData: NSMutableData?
     
     override func viewDidLoad() {
-      super.viewDidLoad()
-      
-      if let data = documentData {
-        pdfView.document = PDFDocument(data: data as Data)
-      }
+        super.viewDidLoad()
+        
+        if let data = documentData {
+            pdfView.document = PDFDocument(data: data as Data)
+        }
     }
+}
 
 //
 //    var url: URL!
@@ -49,4 +50,4 @@ class PDFPreviewVC: UIViewController {
 //    func setupWithURL(_ url: URL) {
 //        self.url = url
 //    }
-}
+

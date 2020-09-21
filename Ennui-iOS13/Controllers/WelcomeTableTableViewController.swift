@@ -21,6 +21,7 @@ class WelcomeTableTableViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadLists()
+        tableView.rowHeight = 80
         tableView.register(UINib(nibName: "NewList", bundle: nil), forCellReuseIdentifier: "reusableCell")
         print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
     
@@ -113,17 +114,62 @@ class WelcomeTableTableViewController: SwipeTableViewController {
             self.addItems(selectedList: newList)
             self.saveLists()
             self.tableView.reloadData()
-            print("action completed")
         }
+        
+        var buildingInput = false
+        var dateInput = false
+        var unitInput = false
+        
+        action.isEnabled = false
         
         alert.addTextField{ (textField) in
             textField.placeholder = "Building Name"
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
+                if textField.text!.count > 0 {
+                    buildingInput = true
+                    if dateInput == true && unitInput == true {
+                        action.isEnabled = true
+                    } else {
+                        action.isEnabled = false
+                    }
+                } else {
+                    buildingInput = false
+                    action.isEnabled = false 
+                }
+            }
         }
         alert.addTextField { (textField) in
-            textField.placeholder = "Date"
+            textField.placeholder = "Date (MM/DD/YYYY)"
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
+                if textField.text!.count == 10 {
+                    dateInput = true
+                    if buildingInput == true && unitInput == true {
+                        action.isEnabled = true
+                    } else {
+                        action.isEnabled = false
+                    }
+                } else {
+                    dateInput = false
+                    action.isEnabled = false
+                }
+            }
         }
+        
         alert.addTextField { (textField) in
             textField.placeholder = "Unit Name"
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
+                if textField.text!.count > 0 {
+                    unitInput = true
+                    if dateInput == true && unitInput == true {
+                        action.isEnabled = true
+                    } else {
+                        action.isEnabled = false
+                    }
+                } else {
+                    unitInput = false
+                    action.isEnabled = false
+                }
+            }
         }
         alert.addTextField { (textField) in
             textField.placeholder = "Unit Name"
@@ -144,11 +190,12 @@ class WelcomeTableTableViewController: SwipeTableViewController {
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .default) { (alertAction) in }
-        alert.addAction(cancel)
+        
         alert.addAction(action)
+        alert.addAction(cancel)
         
         present(alert, animated: true, completion: nil)
-
+        
     }
     
     //MARK: - Delete Data from Swipe
@@ -730,3 +777,5 @@ extension Item {
         self.premisesIndex = premisesIndex
     }
 }
+
+

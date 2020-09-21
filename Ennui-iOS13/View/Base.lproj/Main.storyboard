@@ -10,13 +10,17 @@
         <!--Navigation Controller-->
         <scene sceneID="gwW-y8-sgN">
             <objects>
-                <navigationController id="UTq-XE-XyU" sceneMemberID="viewController">
+                <navigationController toolbarHidden="NO" id="UTq-XE-XyU" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DDv-cU-vZV">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.21960784310000001" green="0.67843137249999996" blue="0.66274509800000003" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZeS-oL-uDo">
+                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="5eA-1n-ULn" kind="relationship" relationship="rootViewController" id="tut-EI-1uf"/>
                     </connections>
@@ -53,7 +57,7 @@
                         <rightBarButtonItems>
                             <barButtonItem systemItem="save" id="syS-bf-Qti">
                                 <connections>
-                                    <segue destination="7EZ-VF-Zgq" kind="show" identifier="PreviewVC" id="AHO-4J-Z2i"/>
+                                    <segue destination="7EZ-VF-Zgq" kind="show" identifier="PreviewVC" id="HuC-G6-jIB"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Item" image="square.and.arrow.up" catalog="system" id="3IE-v9-mjH">
@@ -88,13 +92,7 @@
                         <viewLayoutGuide key="safeArea" id="FeU-r4-f1Y"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="ae1-mG-uGv">
-                        <barButtonItem key="rightBarButtonItem" title="Close" id="gJE-71-fFg">
-                            <connections>
-                                <action selector="close:" destination="7EZ-VF-Zgq" id="9Rr-ZG-LBs"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="ae1-mG-uGv"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="pdfView" destination="hUN-pl-HYi" id="64X-Xe-Tq1"/>

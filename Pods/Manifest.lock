@@ -3,22 +3,16 @@ PODS:
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
   - IQKeyboardManagerSwift (6.5.5)
-  - PDFGenerator (3.1.0)
-  - SwiftSignatureView (3.2.0)
   - SwipeCellKit (2.7.1)
 
 DEPENDENCIES:
   - ChameleonFramework/Swift (from `https://github.com/wowansm/Chameleon.git`, branch `swift5`)
   - IQKeyboardManagerSwift
-  - PDFGenerator (~> 3.0)
-  - SwiftSignatureView
   - SwipeCellKit
 
 SPEC REPOS:
   trunk:
     - IQKeyboardManagerSwift
-    - PDFGenerator
-    - SwiftSignatureView
     - SwipeCellKit
 
 EXTERNAL SOURCES:
@@ -34,10 +28,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
-  PDFGenerator: 17d6bc525db0a3fcd156fbf00f9d1b8d5cc75d1e
-  SwiftSignatureView: cd8cca297cc2ca6a6c174da22fb908c33d03d3c0
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: 7aa1ff27bd603bae8edc9dfddcc68694341eff88
+PODFILE CHECKSUM: 15a10d643c626e08b2bc3f58bfbbb58c387f5207
 
 COCOAPODS: 1.9.2
