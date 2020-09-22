@@ -21,7 +21,7 @@ class WelcomeTableTableViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadLists()
-        tableView.rowHeight = 80
+        tableView.rowHeight = 100
         tableView.register(UINib(nibName: "NewList", bundle: nil), forCellReuseIdentifier: "reusableCell")
         print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
     
