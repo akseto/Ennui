@@ -25,6 +25,8 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     
     @IBOutlet weak var checklistSubview: UIView!
     
+    @IBOutlet weak var previewButton: UIBarButtonItem!
+    
     var selectedList: Lists? {
         didSet {
             loadItems()
@@ -37,17 +39,16 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         //        title = selectedList?.buildingName
+        previewButton.isEnabled = false
         let headerView: UIView = UIView.init(frame: CGRect(x: 1, y:50, width: tableView.frame.width, height: 50))
         let labelView: UILabel = UILabel.init(frame: CGRect(x: 4, y: 5, width: headerView.frame.width, height: 24))
-        labelView.text = "\(String(describing: selectedList!.buildingName!));\(selectedList!.date!)"
+        labelView.text = "\(String(describing: selectedList!.buildingName!)) Vacant Unit Checklist, \(selectedList!.date!)"
         headerView.addSubview(labelView)
         tableView.tableHeaderView = headerView
         tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "cell")
-        scrollToBottom()
-        scrollToTop()
+//        scrollToBottom()
+//        scrollToTop()
     }
-    
-    
     
     // MARK: - Table view data source
     
@@ -88,6 +89,7 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
             cell.itemTextView.textColor = UIColor.lightGray
         } else {
             cell.itemTextView.text = itemArrays[indexPath.section][indexPath.row].comments
+            cell.itemTextView.textColor = UIColor.black
         }
         switch itemArrays[indexPath.section][indexPath.row].selectedSegment {
         case "Good":
@@ -103,11 +105,6 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         }
         
         return cell
-        
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        generatePDF()
         
     }
     
@@ -229,29 +226,34 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         print("items sorted")
     }
     
-    //MARK: - Generate PDF using Internet Inquiries
+    //MARK: - PDF Generation Methods
     
-    //FUNC that is supposed to create multi-page PDF direct from tableView
+    
+    @IBAction func donePressed(_ sender: UIBarButtonItem) {
+        
+        previewButton.isEnabled = true
+    }
+    
     func createPdfFromTableView() -> NSMutableData {
-        let priorBounds = tableView.bounds
-        let fittedSize = tableView.sizeThatFits(CGSize(width:priorBounds.size.width, height:tableView.contentSize.height))
+        let page = CGRect(x: -25, y: 25, width: 612, height: 792)
+        let pageWithMargin = CGRect(x: 0, y: 0, width: page.width-50, height: page.height-50)
+        let fittedSize = tableView.sizeThatFits(CGSize(width:pageWithMargin.size.width, height:tableView.contentSize.height))
         tableView.bounds = CGRect(x:0, y:0, width:fittedSize.width, height:fittedSize.height)
-        let pdfPageBounds = CGRect(x:0, y:0, width:tableView.frame.width, height:self.view.frame.height)
         let pdfData = NSMutableData()
-        UIGraphicsBeginPDFContextToData(pdfData, pdfPageBounds,nil)
+        UIGraphicsBeginPDFContextToData(pdfData, page, nil)
         var pageOriginY: CGFloat = 0
         while pageOriginY < fittedSize.height {
-            UIGraphicsBeginPDFPageWithInfo(pdfPageBounds, nil)
+            UIGraphicsBeginPDFPageWithInfo(page, nil)
             UIGraphicsGetCurrentContext()!.saveGState()
             UIGraphicsGetCurrentContext()!.translateBy(x: 0, y: -pageOriginY)
             tableView.layer.render(in: UIGraphicsGetCurrentContext()!)
             UIGraphicsGetCurrentContext()!.restoreGState()
-            pageOriginY += pdfPageBounds.size.height
+            pageOriginY += page.size.height
         }
         UIGraphicsEndPDFContext()
-        tableView.bounds = priorBounds
+        tableView.bounds = pageWithMargin
         var docURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last! as URL
-        docURL = docURL.appendingPathComponent("myDocument.pdf")
+        docURL = docURL.appendingPathComponent("vacantUnitChecklist.pdf")
         print(docURL)
         pdfData.write(to: docURL as URL, atomically: true)
         return pdfData
@@ -260,115 +262,35 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // This method creates the PDF when the user calls the segue on the Preview button. It passes the PDF data to the destination PDFPreviewViewController.
-        
-        if segue.identifier == "PreviewVC" {
+        if segue.identifier == "PreviewPDF" {
             guard let vc = segue.destination as? PDFPreviewVC else { return }
-            //        let createdImg = createImg()
-            //        vc.documentData = createPDFDataFromImage(image: createdImg)
             vc.documentData = createPdfFromTableView()
         }
     }
     
     @IBAction func shareButton(_ sender: UIBarButtonItem) {
-        //        let createdImg = createImg()
-        //        let documentData = createPDFDataFromImage(image: createdImg)
         let documentData = createPdfFromTableView()
         let vc = UIActivityViewController(activityItems: [documentData], applicationActivities: [])
         present(vc, animated: true, completion: nil)
     }
-    
-    //    func createImg() -> UIImage {
-    //        guard tableView.numberOfSections > 0, tableView.numberOfRows(inSection: 0) > 0 else {
-    //            let errorImage = UIImage(named: "Error Image")
-    //            return errorImage!
-    //        }
-    //        UIGraphicsBeginImageContextWithOptions(CGSize(width: tableView.contentSize.width, height: tableView.contentSize.height), false, 0.0)
-    //        let context = UIGraphicsGetCurrentContext()
-    //        let previousFrame = tableView.frame
-    //        tableView.frame = CGRect(x: tableView.frame.origin.x, y: tableView.frame.origin.y, width: tableView.contentSize.width, height: tableView.contentSize.height)
-    //        tableView.layer.render(in: context!)
-    //        tableView.frame = previousFrame
-    //        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-    //        UIGraphicsEndImageContext()
-    //
-    //        return image
-    //    }
-    
-    //    func createPDFDataFromImage(image: UIImage) -> NSMutableData {
-    //        let pdfData = NSMutableData()
-    //        let imgView = UIImageView.init(image: image)
-    //        let imageRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-    //        let pdfPageBounds = CGRect(x:0, y:0, width: imgView.frame.width, height:self.view.frame.height)
-    //        UIGraphicsBeginPDFContextToData(pdfData, pdfPageBounds, nil)
-    //        var pageOriginY: CGFloat = 0
-    //        while pageOriginY < image.size.height {
-    //            UIGraphicsBeginPDFPageWithInfo(pdfPageBounds, nil)
-    //            UIGraphicsGetCurrentContext()!.saveGState()
-    //            UIGraphicsGetCurrentContext()!.translateBy(x: 0, y: -pageOriginY)
-    //            imgView.layer.render(in: UIGraphicsGetCurrentContext()!)
-    //            UIGraphicsGetCurrentContext()!.restoreGState()
-    //            pageOriginY += pdfPageBounds.size.height
-    //        }
-    //        UIGraphicsEndPDFContext()
-    //
-    //        let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
-    //        let path = directory?.appendingPathComponent("vacantUnitChecklist.pdf")
-    //        do {
-    //            try pdfData.write(to: path!, options: NSData.WritingOptions.atomic)
-    //        } catch {
-    //            print("error catched")
-    //        }
-    
-    //        let activityViewController = UIActivityViewController(activityItems: [pdfData], applicationActivities: nil)
-    //        activityViewController.popoverPresentationController?.sourceView = self.view
-    //        self.present(activityViewController, animated: true, completion: nil)
-    
-    //        return pdfData
-    //    }
-    
-    
-    
-    //MARK: - Generate PDF from TableView - PDFGenerator
-    
-    //    @objc fileprivate func generatePDF() {
-    //        do {
-    //            let dst = NSHomeDirectory() + "/sample_tblview.pdf"
-    //            try PDFGenerator.generate(self.tableView, to: dst)
-    //            openPDFViewer(dst)
-    //        } catch let error {
-    //            print(error)
-    //        }
-    //
-    //    }
-    //
-    //    fileprivate func openPDFViewer(_ pdfPath: String) {
-    //        self.performSegue(withIdentifier: "PreviewVC", sender: pdfPath)
-    //    }
-    //
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if let pdfPreviewVC = segue.destination as? PDFPreviewVC, let pdfPath = sender as? String {
-    //            let url = URL(fileURLWithPath: pdfPath)
-    //            pdfPreviewVC.setupWithURL(url)
-    //        }
-    //    }
-    
 }
 
 extension ConsolidatedTableViewController {
-    func scrollToBottom() {
+    func scrollToBottom(finished: () -> Void) {
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: self.tableView.numberOfRows(inSection: self.tableView.numberOfSections-1)-1, section: self.tableView.numberOfSections - 1)
             if self.hasRowAtIndexPath(indexPath: indexPath) {
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
             }
         }
+        finished()
     }
     
     func scrollToTop() {
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: 0, section: 0)
             if self.hasRowAtIndexPath(indexPath: indexPath) {
-                self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
             }
         }
     }

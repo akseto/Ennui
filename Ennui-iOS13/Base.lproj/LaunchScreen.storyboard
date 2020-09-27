@@ -25,8 +25,6 @@
                             <constraint firstItem="WEx-Om-pKQ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="CZw-iY-tIT"/>
                             <constraint firstItem="WEx-Om-pKQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Gac-cb-AYC"/>
                             <constraint firstItem="WEx-Om-pKQ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="a9q-F3-8Yr"/>
-                            <constraint firstItem="WEx-Om-pKQ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="jEL-G5-POc"/>
-                            <constraint firstItem="WEx-Om-pKQ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="zmN-9j-lC3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

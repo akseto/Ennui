@@ -24,30 +24,3 @@ class PDFPreviewVC: UIViewController {
         }
     }
 }
-
-//
-//    var url: URL!
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        let req = NSMutableURLRequest(url: url)
-//        req.timeoutInterval = 60.0
-//        req.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-//
-//        // webView.scalesPageToFit = true
-//        webView.load(req as URLRequest)
-//    }
-//
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//    }
-//
-//
-//    @IBAction func close(_ sender: UIBarButtonItem) {
-//        dismiss(animated: true, completion: nil)
-//    }
-//
-//
-//    func setupWithURL(_ url: URL) {
-//        self.url = url
-//    }
-

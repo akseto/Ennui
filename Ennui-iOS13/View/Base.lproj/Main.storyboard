@@ -22,27 +22,26 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="5eA-1n-ULn" kind="relationship" relationship="rootViewController" id="tut-EI-1uf"/>
+                        <segue destination="5eA-1n-ULn" kind="relationship" relationship="rootViewController" id="iWx-yh-FRw"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xhY-RL-lOH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1517" y="51"/>
+            <point key="canvasLocation" x="-1701" y="51"/>
         </scene>
         <!--Consolidated Table View Controller-->
         <scene sceneID="D5m-53-0r1">
             <objects>
                 <tableViewController id="nL3-L4-jZL" customClass="ConsolidatedTableViewController" customModule="Ennui_iOS13" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sGS-gV-hqJ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="sGS-gV-hqJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="FqJ-1X-gvx">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="20" y="55.5" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FqJ-1X-gvx" id="M7M-3s-kQz">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -52,12 +51,20 @@
                             <outlet property="delegate" destination="nL3-L4-jZL" id="AS6-EN-dV0"/>
                         </connections>
                     </tableView>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="ds3-zv-sSc"/>
+                        <barButtonItem title="Done" image="checkmark.circle" catalog="system" id="wpC-tl-ESg">
+                            <connections>
+                                <action selector="donePressed:" destination="nL3-L4-jZL" id="uxz-cd-jWC"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="hlS-cL-X7x"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="Viu-b1-nY5">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="save" id="syS-bf-Qti">
                                 <connections>
-                                    <segue destination="7EZ-VF-Zgq" kind="show" identifier="PreviewVC" id="HuC-G6-jIB"/>
+                                    <segue destination="7EZ-VF-Zgq" kind="show" identifier="PreviewPDF" id="Gsd-hc-M2x"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Item" image="square.and.arrow.up" catalog="system" id="3IE-v9-mjH">
@@ -69,6 +76,9 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="previewButton" destination="syS-bf-Qti" id="Dvp-ky-Qo1"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OIP-Oz-jbe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -144,6 +154,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkmark.circle" catalog="system" width="64" height="60"/>
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
 </document>
