@@ -40,15 +40,34 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         super.viewDidLoad()
         //        title = selectedList?.buildingName
         previewButton.isEnabled = false
-        let headerView: UIView = UIView.init(frame: CGRect(x: 1, y:50, width: tableView.frame.width, height: 50))
-        let labelView: UILabel = UILabel.init(frame: CGRect(x: 4, y: 5, width: headerView.frame.width, height: 24))
-        labelView.text = "\(String(describing: selectedList!.buildingName!)) Vacant Unit Checklist, \(selectedList!.date!)"
-        headerView.addSubview(labelView)
-        tableView.tableHeaderView = headerView
+        
+        //        let headerView: UIView = UIView.init(frame: CGRect(x: 1, y:50, width: tableView.frame.width, height: 50))
+        //        let labelView: UILabel = UILabel.init(frame: CGRect(x: 4, y: 5, width: headerView.frame.width, height: 24))
+        //        labelView.text = "\(String(describing: selectedList!.buildingName!)) Vacant Unit Checklist, \(selectedList!.date!)"
+        //        headerView.addSubview(labelView)
+        //        tableView.tableHeaderView = headerView
         tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "cell")
-//        scrollToBottom()
-//        scrollToTop()
+        //        scrollToBottom()
+        //        scrollToTop()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let navigationVC = navigationController {
+            let progressBar = UIProgressView(progressViewStyle: .bar)
+            navigationVC.navigationBar.addSubview(progressBar)
+            let bottomConstraint = NSLayoutConstraint(item: navigationVC.navigationBar, attribute: .bottom, relatedBy: .equal, toItem: progressBar, attribute: .bottom, multiplier: 1, constant: 1)
+            let leftConstraint = NSLayoutConstraint(item: navigationVC.navigationBar, attribute: .leading, relatedBy: .equal, toItem: progressBar, attribute: .leading, multiplier: 1, constant: 0)
+            let rightConstraint = NSLayoutConstraint(item: navigationVC.navigationBar, attribute: .trailing, relatedBy: .equal, toItem: progressBar, attribute: .trailing, multiplier: 1, constant: 0)
+            progressBar.translatesAutoresizingMaskIntoConstraints = false
+            navigationVC.view.addConstraints([bottomConstraint, leftConstraint, rightConstraint])
+            progressBar.frame = CGRect(x: 0, y: 64, width: self.view.frame.width, height: 4)
+            progressBar.backgroundColor = UIColor.darkGray
+            print("something happened")
+        } else {
+            print("self.navigationController is equal to nil what the fuck!")
+        }
+    }
+
     
     // MARK: - Table view data source
     
@@ -110,7 +129,7 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     
     
     //MARK: - ItemCell Delegate Methods
-   
+    
     func didSelectSegmentControlCell(cell: ItemCell) {
         if let indexPath = tableView.indexPath(for: cell) {
             itemArrays[indexPath.section][indexPath.row].selectedSegment = cell.condition.titleForSegment(at: cell.condition.selectedSegmentIndex)

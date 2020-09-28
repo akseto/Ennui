@@ -8,18 +8,20 @@
 
 import UIKit
 import CoreData
-import ChameleonFramework
 import SwipeCellKit
 
 class WelcomeTableTableViewController: SwipeTableViewController {
 
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
+
     var lists = [Lists]()
+
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
         loadLists()
         tableView.rowHeight = 100
         tableView.register(UINib(nibName: "NewList", bundle: nil), forCellReuseIdentifier: "reusableCell")
@@ -37,8 +39,13 @@ class WelcomeTableTableViewController: SwipeTableViewController {
         }
     }
     
-    func loadLists() {
-        let request: NSFetchRequest<Lists> = Lists.fetchRequest()
+    func loadLists(with request: NSFetchRequest<Lists> = Lists.fetchRequest(), searchPredicate: NSPredicate? = nil) {
+        
+        if let filterPredicate = searchPredicate {
+            request.predicate = filterPredicate
+        } else {
+            request.predicate = nil
+        }
         
         do {
             lists = try context.fetch(request)
@@ -746,6 +753,7 @@ class WelcomeTableTableViewController: SwipeTableViewController {
 }
 
 //MARK: - TableView Extensions
+
 extension UITableView {
 
     func setEmptyMessage(_ message: String) {
@@ -766,6 +774,26 @@ extension UITableView {
         self.separatorStyle = .singleLine
     }
     
+}
+
+extension WelcomeTableTableViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request: NSFetchRequest<Lists> = Lists.fetchRequest()
+        let searchPredicate = NSPredicate(format: "buildingName CONTAINS[cd] %@", searchBar.text!)
+        request.predicate = searchPredicate
+        request.sortDescriptors = [NSSortDescriptor(key: "buildingName", ascending: true)]
+        loadLists(with: request, searchPredicate: searchPredicate)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text!.count == 0 {
+            loadLists()
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
 }
 
 extension Item {
