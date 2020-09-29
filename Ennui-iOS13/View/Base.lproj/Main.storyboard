@@ -10,17 +10,13 @@
         <!--Navigation Controller-->
         <scene sceneID="gwW-y8-sgN">
             <objects>
-                <navigationController toolbarHidden="NO" id="UTq-XE-XyU" sceneMemberID="viewController">
+                <navigationController id="UTq-XE-XyU" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DDv-cU-vZV">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.0039215686274509803" green="0.63921568627450975" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZeS-oL-uDo">
-                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
                     <connections>
                         <segue destination="5eA-1n-ULn" kind="relationship" relationship="rootViewController" id="iWx-yh-FRw"/>
                     </connections>
@@ -36,11 +32,16 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="sGS-gV-hqJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="dSf-XZ-B3u" userLabel="headerView">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="FqJ-1X-gvx">
-                                <rect key="frame" x="20" y="55.333332061767578" width="374" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="s25-zE-pdS">
+                                <rect key="frame" x="20" y="99.333332061767578" width="374" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FqJ-1X-gvx" id="M7M-3s-kQz">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="s25-zE-pdS" id="gua-pi-fj4">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
@@ -55,28 +56,21 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="hlS-cL-X7x"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="Viu-b1-nY5">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="save" id="syS-bf-Qti">
-                                <connections>
-                                    <segue destination="7EZ-VF-Zgq" kind="show" identifier="PreviewPDF" id="Gsd-hc-M2x"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Item" image="square.and.arrow.up" catalog="system" id="3IE-v9-mjH">
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="shareButton:" destination="nL3-L4-jZL" id="5d9-HX-jCJ"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Preview" image="doc.plaintext" catalog="system" id="I3r-Ah-nd6">
+                            <connections>
+                                <action selector="generatePdfPressed:" destination="nL3-L4-jZL" id="vYb-rA-D78"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="previewButton" destination="syS-bf-Qti" id="Dvp-ky-Qo1"/>
+                        <outlet property="headerView" destination="dSf-XZ-B3u" id="rAx-pS-zoC"/>
+                        <segue destination="7EZ-VF-Zgq" kind="show" identifier="PreviewPDF" id="KFa-VC-uiw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OIP-Oz-jbe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="184" y="51"/>
+            <point key="canvasLocation" x="182.60869565217394" y="50.892857142857139"/>
         </scene>
         <!--PreviewVC-->
         <scene sceneID="zaB-Ub-SYG">
@@ -96,7 +90,14 @@
                         <viewLayoutGuide key="safeArea" id="FeU-r4-f1Y"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="ae1-mG-uGv"/>
+                    <navigationItem key="navigationItem" id="ae1-mG-uGv">
+                        <barButtonItem key="rightBarButtonItem" title="share" image="square.and.arrow.up" catalog="system" width="76" id="3IE-v9-mjH">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="sharePressed:" destination="7EZ-VF-Zgq" id="u8M-eS-D9V"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="pdfView" destination="hUN-pl-HYi" id="64X-Xe-Tq1"/>
@@ -154,6 +155,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="doc.plaintext" catalog="system" width="56" height="64"/>
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
 </document>

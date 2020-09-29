@@ -23,9 +23,9 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     var itemArrays = [[Item]]()
     
     
-    @IBOutlet weak var checklistSubview: UIView!
-    
-    @IBOutlet weak var previewButton: UIBarButtonItem!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var footerView: UIView!
+    @IBOutlet weak var previewPDF: UIButton!
     
     var selectedList: Lists? {
         didSet {
@@ -39,33 +39,17 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         //        title = selectedList?.buildingName
-        previewButton.isEnabled = false
         
         //        let headerView: UIView = UIView.init(frame: CGRect(x: 1, y:50, width: tableView.frame.width, height: 50))
         //        let labelView: UILabel = UILabel.init(frame: CGRect(x: 4, y: 5, width: headerView.frame.width, height: 24))
         //        labelView.text = "\(String(describing: selectedList!.buildingName!)) Vacant Unit Checklist, \(selectedList!.date!)"
         //        headerView.addSubview(labelView)
         //        tableView.tableHeaderView = headerView
+        
+    
         tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "cell")
         //        scrollToBottom()
         //        scrollToTop()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if let navigationVC = navigationController {
-            let progressBar = UIProgressView(progressViewStyle: .bar)
-            navigationVC.navigationBar.addSubview(progressBar)
-            let bottomConstraint = NSLayoutConstraint(item: navigationVC.navigationBar, attribute: .bottom, relatedBy: .equal, toItem: progressBar, attribute: .bottom, multiplier: 1, constant: 1)
-            let leftConstraint = NSLayoutConstraint(item: navigationVC.navigationBar, attribute: .leading, relatedBy: .equal, toItem: progressBar, attribute: .leading, multiplier: 1, constant: 0)
-            let rightConstraint = NSLayoutConstraint(item: navigationVC.navigationBar, attribute: .trailing, relatedBy: .equal, toItem: progressBar, attribute: .trailing, multiplier: 1, constant: 0)
-            progressBar.translatesAutoresizingMaskIntoConstraints = false
-            navigationVC.view.addConstraints([bottomConstraint, leftConstraint, rightConstraint])
-            progressBar.frame = CGRect(x: 0, y: 64, width: self.view.frame.width, height: 4)
-            progressBar.backgroundColor = UIColor.darkGray
-            print("something happened")
-        } else {
-            print("self.navigationController is equal to nil what the fuck!")
-        }
     }
 
     
@@ -247,10 +231,26 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     
     //MARK: - PDF Generation Methods
     
-    
-    @IBAction func donePressed(_ sender: UIBarButtonItem) {
+    @IBAction func generatePdfPressed(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Generate PDF?", message: "Before generating a PDF, scroll continuously from the top of the checklist to the bottom to ensure that all items are captured. Checklist items may be cut off if this step is missed.", preferredStyle: .alert)
+        let scroll = UIAlertAction(title: "Scroll", style: .default) { (scroll) in
+            self.scrollToTop()
+        }
+        let generatePDF = UIAlertAction(title: "Generate PDF", style: .default) { (generatePDF) in
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "PreviewPDF", sender: self)
+            }
+        }
+        alert.addAction(scroll)
+        alert.addAction(generatePDF)
         
-        previewButton.isEnabled = true
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func completePressed(_ sender: UIButton) {
+//        scrollToTop {
+//            scrollToBottom()
+//        }
     }
     
     func createPdfFromTableView() -> NSMutableData {
@@ -295,28 +295,29 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
 }
 
 extension ConsolidatedTableViewController {
-    func scrollToBottom(finished: () -> Void) {
+    func scrollToBottom() {
         DispatchQueue.main.async {
-            let indexPath = IndexPath(row: self.tableView.numberOfRows(inSection: self.tableView.numberOfSections-1)-1, section: self.tableView.numberOfSections - 1)
-            if self.hasRowAtIndexPath(indexPath: indexPath) {
-                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            UIView.animate(withDuration: 0.5) {
+                let indexPath = IndexPath(row: self.tableView.numberOfRows(inSection: self.tableView.numberOfSections-1)-1, section: self.tableView.numberOfSections - 1)
+                if self.hasRowAtIndexPath(indexPath: indexPath) {
+                    self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+                }
             }
         }
-        finished()
     }
     
     func scrollToTop() {
-        DispatchQueue.main.async {
-            let indexPath = IndexPath(row: 0, section: 0)
-            if self.hasRowAtIndexPath(indexPath: indexPath) {
-                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-            }
+        UIView.animate(withDuration: 0.5) {
+            let top = NSIndexPath(row: Foundation.NSNotFound, section: 0)
+            self.tableView.scrollToRow(at: top as IndexPath, at: .top, animated: false)
         }
     }
     
     func hasRowAtIndexPath(indexPath: IndexPath) -> Bool {
         return indexPath.section < self.tableView.numberOfSections && indexPath.row < self.tableView.numberOfRows(inSection: indexPath.section)
     }
+    
+
     
 }
 

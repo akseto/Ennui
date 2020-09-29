@@ -16,9 +16,18 @@ class PDFPreviewVC: UIViewController {
     
     public var documentData: NSMutableData?
     
+    
+    @IBAction func sharePressed(_ sender: UIBarButtonItem) {
+        
+        if let data = documentData {
+            let vc = UIActivityViewController(activityItems: [data], applicationActivities: [])
+            present(vc, animated: true, completion: nil)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         if let data = documentData {
             pdfView.document = PDFDocument(data: data as Data)
         }

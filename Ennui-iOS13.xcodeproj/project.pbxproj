@@ -17,7 +17,6 @@
 		F418252524F471D2006E7141 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = F418252424F471D2006E7141 /* Fonts */; };
 		F418252A24F47972006E7141 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F418252824F47971006E7141 /* DataModel.xcdatamodeld */; };
 		F4259DFD2517F4010075446B /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4259DFC2517F4010075446B /* Header.swift */; };
-		F4350E0D25114C630017C6E0 /* PDFCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4350E0C25114C630017C6E0 /* PDFCreator.swift */; };
 		F43BBD4B24FEF6950071AA39 /* ConsolidatedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43BBD4A24FEF6950071AA39 /* ConsolidatedTableViewController.swift */; };
 		F4442FE125094599002C8531 /* PDFPreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4442FE025094599002C8531 /* PDFPreviewVC.swift */; };
 		F461D6B024F5C1ED008624CF /* WelcomeTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F461D6AF24F5C1ED008624CF /* WelcomeTableTableViewController.swift */; };
@@ -43,7 +42,6 @@
 		F418252424F471D2006E7141 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		F418252924F47971006E7141 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		F4259DFC2517F4010075446B /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
-		F4350E0C25114C630017C6E0 /* PDFCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFCreator.swift; sourceTree = "<group>"; };
 		F43BBD4A24FEF6950071AA39 /* ConsolidatedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsolidatedTableViewController.swift; sourceTree = "<group>"; };
 		F4442FE025094599002C8531 /* PDFPreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPreviewVC.swift; sourceTree = "<group>"; };
 		F461D6AF24F5C1ED008624CF /* WelcomeTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeTableTableViewController.swift; sourceTree = "<group>"; };
@@ -138,7 +136,6 @@
 				F43BBD4A24FEF6950071AA39 /* ConsolidatedTableViewController.swift */,
 				F461D6B124F5CB5C008624CF /* SwipeTableViewController.swift */,
 				F4442FE025094599002C8531 /* PDFPreviewVC.swift */,
-				F4350E0C25114C630017C6E0 /* PDFCreator.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -278,7 +275,6 @@
 				F4918DC324F9A70E004CAFA2 /* ItemCell.swift in Sources */,
 				F418250324F46CE3006E7141 /* AppDelegate.swift in Sources */,
 				F4259DFD2517F4010075446B /* Header.swift in Sources */,
-				F4350E0D25114C630017C6E0 /* PDFCreator.swift in Sources */,
 				F418252A24F47972006E7141 /* DataModel.xcdatamodeld in Sources */,
 				F418250524F46CE3006E7141 /* SceneDelegate.swift in Sources */,
 			);
