@@ -9,11 +9,10 @@
 import UIKit
 import CoreData
 
-class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewDelegate {
+class ChecklistTableViewController: UITableViewController, ItemCellTableViewDelegate {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var categories = [Category]()
     var items = [Item]()
     var premises1 = [Item]()
     var premises2 = [Item]()
@@ -46,7 +45,6 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         //        headerView.addSubview(labelView)
         //        tableView.tableHeaderView = headerView
         
-    
         tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "cell")
         //        scrollToBottom()
         //        scrollToTop()
@@ -154,7 +152,7 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     func loadItems() {
         
         let request: NSFetchRequest<Item> = Item.fetchRequest()
-        let listPredicate = NSPredicate(format: "parentList.buildingName MATCHES %@", selectedList!.buildingName!)
+        let listPredicate = NSPredicate(format: "parentList.premises1 MATCHES %@", selectedList!.premises1!)
         request.predicate = listPredicate
         
         do {
@@ -294,7 +292,7 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     }
 }
 
-extension ConsolidatedTableViewController {
+extension ChecklistTableViewController {
     func scrollToBottom() {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.5) {

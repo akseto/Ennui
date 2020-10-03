@@ -18,17 +18,55 @@
                         <color key="barTintColor" red="0.0039215686274509803" green="0.63921568627450975" blue="0.64313725490196072" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="5eA-1n-ULn" kind="relationship" relationship="rootViewController" id="iWx-yh-FRw"/>
+                        <segue destination="OHG-Yk-b8N" kind="relationship" relationship="rootViewController" id="k40-c5-Llf"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xhY-RL-lOH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1701" y="51"/>
+            <point key="canvasLocation" x="-2567" y="51"/>
         </scene>
-        <!--Consolidated Table View Controller-->
+        <!--Property Table View Controller-->
+        <scene sceneID="dkw-MR-uJI">
+            <objects>
+                <tableViewController id="OHG-Yk-b8N" customClass="PropertyTableViewController" customModule="Ennui_iOS13" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="qHG-AK-iEm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reusableCell" id="sSZ-lt-bi4">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sSZ-lt-bi4" id="JPx-3f-65R">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="OHG-Yk-b8N" id="CWc-zN-Xe8"/>
+                            <outlet property="delegate" destination="OHG-Yk-b8N" id="Y2q-fA-CqV"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="GNd-0l-Obf">
+                        <barButtonItem key="rightBarButtonItem" title="addButton" image="plus" catalog="system" id="zAh-6N-scz">
+                            <connections>
+                                <action selector="addButton:" destination="OHG-Yk-b8N" id="Cqa-N7-eUR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="5eA-1n-ULn" kind="show" identifier="goToLists" id="GMG-8H-QCw"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FIY-Ue-Mjw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1681" y="51"/>
+        </scene>
+        <!--Checklist Table View Controller-->
         <scene sceneID="D5m-53-0r1">
             <objects>
-                <tableViewController id="nL3-L4-jZL" customClass="ConsolidatedTableViewController" customModule="Ennui_iOS13" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="nL3-L4-jZL" customClass="ChecklistTableViewController" customModule="Ennui_iOS13" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="sGS-gV-hqJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,7 +148,7 @@
         <!--Ennui-->
         <scene sceneID="X1c-Nl-oXq">
             <objects>
-                <tableViewController id="5eA-1n-ULn" customClass="WelcomeTableTableViewController" customModule="Ennui_iOS13" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="5eA-1n-ULn" customClass="ListTableViewController" customModule="Ennui_iOS13" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pUd-wV-HyB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -156,6 +194,7 @@
     </scenes>
     <resources>
         <image name="doc.plaintext" catalog="system" width="56" height="64"/>
+        <image name="plus" catalog="system" width="64" height="56"/>
         <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
 </document>

@@ -27,7 +27,7 @@ class PDFPreviewVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        title = "PDF Preview"
         if let data = documentData {
             pdfView.document = PDFDocument(data: data as Data)
         }

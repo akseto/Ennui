@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		C84E64A9A1343AC8762E309F /* Pods_Ennui_iOS13.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D60F718C48CF0C5547554BD1 /* Pods_Ennui_iOS13.framework */; };
+		F40635E225290F7E00CB0BB7 /* PropertyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40635E125290F7E00CB0BB7 /* PropertyTableViewController.swift */; };
+		F40635E92529128B00CB0BB7 /* BuildingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40635E72529128B00CB0BB7 /* BuildingCell.swift */; };
+		F40635EA2529128B00CB0BB7 /* BuildingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F40635E82529128B00CB0BB7 /* BuildingCell.xib */; };
 		F418250324F46CE3006E7141 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F418250224F46CE3006E7141 /* AppDelegate.swift */; };
 		F418250524F46CE3006E7141 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F418250424F46CE3006E7141 /* SceneDelegate.swift */; };
 		F418250A24F46CE3006E7141 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F418250824F46CE3006E7141 /* Main.storyboard */; };
@@ -17,9 +20,9 @@
 		F418252524F471D2006E7141 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = F418252424F471D2006E7141 /* Fonts */; };
 		F418252A24F47972006E7141 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F418252824F47971006E7141 /* DataModel.xcdatamodeld */; };
 		F4259DFD2517F4010075446B /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4259DFC2517F4010075446B /* Header.swift */; };
-		F43BBD4B24FEF6950071AA39 /* ConsolidatedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43BBD4A24FEF6950071AA39 /* ConsolidatedTableViewController.swift */; };
+		F43BBD4B24FEF6950071AA39 /* ChecklistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43BBD4A24FEF6950071AA39 /* ChecklistTableViewController.swift */; };
 		F4442FE125094599002C8531 /* PDFPreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4442FE025094599002C8531 /* PDFPreviewVC.swift */; };
-		F461D6B024F5C1ED008624CF /* WelcomeTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F461D6AF24F5C1ED008624CF /* WelcomeTableTableViewController.swift */; };
+		F461D6B024F5C1ED008624CF /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F461D6AF24F5C1ED008624CF /* ListTableViewController.swift */; };
 		F461D6B224F5CB5C008624CF /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F461D6B124F5CB5C008624CF /* SwipeTableViewController.swift */; };
 		F48B641124F7128B003CC500 /* NewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48B640F24F7128B003CC500 /* NewList.swift */; };
 		F48B641224F7128B003CC500 /* NewList.xib in Resources */ = {isa = PBXBuildFile; fileRef = F48B641024F7128B003CC500 /* NewList.xib */; };
@@ -31,6 +34,9 @@
 		572785D59F1B2D4DCC7CCC0E /* Pods-Ennui-iOS13.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ennui-iOS13.release.xcconfig"; path = "Target Support Files/Pods-Ennui-iOS13/Pods-Ennui-iOS13.release.xcconfig"; sourceTree = "<group>"; };
 		5D6B0CBC836741CCFAD9EA5E /* Pods-Ennui-iOS13.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ennui-iOS13.debug.xcconfig"; path = "Target Support Files/Pods-Ennui-iOS13/Pods-Ennui-iOS13.debug.xcconfig"; sourceTree = "<group>"; };
 		D60F718C48CF0C5547554BD1 /* Pods_Ennui_iOS13.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ennui_iOS13.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F40635E125290F7E00CB0BB7 /* PropertyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTableViewController.swift; sourceTree = "<group>"; };
+		F40635E72529128B00CB0BB7 /* BuildingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingCell.swift; sourceTree = "<group>"; };
+		F40635E82529128B00CB0BB7 /* BuildingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BuildingCell.xib; sourceTree = "<group>"; };
 		F41824FF24F46CE3006E7141 /* Ennui-iOS13.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ennui-iOS13.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F418250224F46CE3006E7141 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F418250424F46CE3006E7141 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,9 +48,9 @@
 		F418252424F471D2006E7141 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		F418252924F47971006E7141 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		F4259DFC2517F4010075446B /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
-		F43BBD4A24FEF6950071AA39 /* ConsolidatedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsolidatedTableViewController.swift; sourceTree = "<group>"; };
+		F43BBD4A24FEF6950071AA39 /* ChecklistTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistTableViewController.swift; sourceTree = "<group>"; };
 		F4442FE025094599002C8531 /* PDFPreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPreviewVC.swift; sourceTree = "<group>"; };
-		F461D6AF24F5C1ED008624CF /* WelcomeTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeTableTableViewController.swift; sourceTree = "<group>"; };
+		F461D6AF24F5C1ED008624CF /* ListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		F461D6B124F5CB5C008624CF /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		F48B640F24F7128B003CC500 /* NewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewList.swift; sourceTree = "<group>"; };
 		F48B641024F7128B003CC500 /* NewList.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewList.xib; sourceTree = "<group>"; };
@@ -120,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				F418250824F46CE3006E7141 /* Main.storyboard */,
+				F40635E72529128B00CB0BB7 /* BuildingCell.swift */,
+				F40635E82529128B00CB0BB7 /* BuildingCell.xib */,
 				F48B640F24F7128B003CC500 /* NewList.swift */,
 				F48B641024F7128B003CC500 /* NewList.xib */,
 				F4918DC124F9A70E004CAFA2 /* ItemCell.swift */,
@@ -132,8 +140,9 @@
 		F418251B24F46E32006E7141 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F461D6AF24F5C1ED008624CF /* WelcomeTableTableViewController.swift */,
-				F43BBD4A24FEF6950071AA39 /* ConsolidatedTableViewController.swift */,
+				F40635E125290F7E00CB0BB7 /* PropertyTableViewController.swift */,
+				F461D6AF24F5C1ED008624CF /* ListTableViewController.swift */,
+				F43BBD4A24FEF6950071AA39 /* ChecklistTableViewController.swift */,
 				F461D6B124F5CB5C008624CF /* SwipeTableViewController.swift */,
 				F4442FE025094599002C8531 /* PDFPreviewVC.swift */,
 			);
@@ -211,6 +220,7 @@
 				F418252524F471D2006E7141 /* Fonts in Resources */,
 				F418251224F46CE8006E7141 /* LaunchScreen.storyboard in Resources */,
 				F4918DC424F9A70E004CAFA2 /* ItemCell.xib in Resources */,
+				F40635EA2529128B00CB0BB7 /* BuildingCell.xib in Resources */,
 				F418250F24F46CE8006E7141 /* Assets.xcassets in Resources */,
 				F48B641224F7128B003CC500 /* NewList.xib in Resources */,
 				F418250A24F46CE3006E7141 /* Main.storyboard in Resources */,
@@ -269,11 +279,13 @@
 				F461D6B224F5CB5C008624CF /* SwipeTableViewController.swift in Sources */,
 				F48B641124F7128B003CC500 /* NewList.swift in Sources */,
 				F4442FE125094599002C8531 /* PDFPreviewVC.swift in Sources */,
-				F43BBD4B24FEF6950071AA39 /* ConsolidatedTableViewController.swift in Sources */,
-				F461D6B024F5C1ED008624CF /* WelcomeTableTableViewController.swift in Sources */,
+				F43BBD4B24FEF6950071AA39 /* ChecklistTableViewController.swift in Sources */,
+				F461D6B024F5C1ED008624CF /* ListTableViewController.swift in Sources */,
+				F40635E92529128B00CB0BB7 /* BuildingCell.swift in Sources */,
 				F418250D24F46CE3006E7141 /* Ennui_iOS13.xcdatamodeld in Sources */,
 				F4918DC324F9A70E004CAFA2 /* ItemCell.swift in Sources */,
 				F418250324F46CE3006E7141 /* AppDelegate.swift in Sources */,
+				F40635E225290F7E00CB0BB7 /* PropertyTableViewController.swift in Sources */,
 				F4259DFD2517F4010075446B /* Header.swift in Sources */,
 				F418252A24F47972006E7141 /* DataModel.xcdatamodeld in Sources */,
 				F418250524F46CE3006E7141 /* SceneDelegate.swift in Sources */,

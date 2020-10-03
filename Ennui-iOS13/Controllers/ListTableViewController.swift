@@ -10,23 +10,28 @@ import UIKit
 import CoreData
 import SwipeCellKit
 
-class WelcomeTableTableViewController: SwipeTableViewController {
+class ListTableViewController: SwipeTableViewController {
 
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     var lists = [Lists]()
+    
+    var selectedBuilding: Building? {
+        didSet {
+            loadLists()
+        }
+    }
 
     @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        loadLists()
+        title = selectedBuilding!.buildingName
         tableView.rowHeight = 100
         tableView.register(UINib(nibName: "NewList", bundle: nil), forCellReuseIdentifier: "reusableCell")
         print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
-    
     }
 
     //MARK: - Model Manipulation Methods
@@ -41,10 +46,13 @@ class WelcomeTableTableViewController: SwipeTableViewController {
     
     func loadLists(with request: NSFetchRequest<Lists> = Lists.fetchRequest(), searchPredicate: NSPredicate? = nil) {
         
+        let buildingPredicate = NSPredicate(format: "parentBuilding.buildingName MATCHES %@", selectedBuilding!.buildingName!)
+        request.predicate = buildingPredicate
+        
         if let filterPredicate = searchPredicate {
-            request.predicate = filterPredicate
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [buildingPredicate, filterPredicate])
         } else {
-            request.predicate = nil
+            request.predicate = buildingPredicate
         }
         
         do {
@@ -71,7 +79,16 @@ class WelcomeTableTableViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reusableCell", for: indexPath) as! NewList
         cell.delegate = self
-        cell.buildingName.text = lists[indexPath.row].buildingName
+        let selectedCell = lists[indexPath.row]
+        if selectedCell.premises2 != nil && selectedCell.premises3 != "" {
+            cell.premises.text = "\(String(describing: selectedCell.premises1!)), \(selectedCell.premises2!), \(selectedCell.premises3!)..."
+        } else {
+            if selectedCell.premises2 != "" {
+                cell.premises.text = "\(String(describing: selectedCell.premises1!)), \(selectedCell.premises2!)"
+            } else {
+                cell.premises.text = "\(String(describing: selectedCell.premises1!))"
+            }
+        }
         cell.date.text = lists[indexPath.row].date
         saveLists()
         
@@ -87,7 +104,7 @@ class WelcomeTableTableViewController: SwipeTableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! ConsolidatedTableViewController
+        let destinationVC = segue.destination as! ChecklistTableViewController
         
         if let indexPath = tableView.indexPathForSelectedRow {
             destinationVC.selectedList = lists[indexPath.row]
@@ -108,49 +125,31 @@ class WelcomeTableTableViewController: SwipeTableViewController {
             let textField3 = alert.textFields![3] as UITextField
             let textField4 = alert.textFields![4] as UITextField
             let textField5 = alert.textFields![5] as UITextField
-            let textField6 = alert.textFields![6] as UITextField
             let newList = Lists(context: self.context)
-            newList.buildingName = textField.text!
-            newList.date = textField1.text!
-            newList.premises1 = textField2.text!
-            newList.premises2 = textField3.text!
-            newList.premises3 = textField4.text!
-            newList.premises4 = textField5.text!
-            newList.premises5 = textField6.text!
+            newList.date = textField.text!
+            newList.premises1 = textField1.text!
+            newList.premises2 = textField2.text!
+            newList.premises3 = textField3.text!
+            newList.premises4 = textField4.text!
+            newList.premises5 = textField5.text!
+            newList.parentBuilding = self.selectedBuilding
             self.lists.append(newList)
             self.addItems(selectedList: newList)
             self.saveLists()
             self.tableView.reloadData()
         }
         
-        var buildingInput = false
         var dateInput = false
         var unitInput = false
         
         action.isEnabled = false
         
-        alert.addTextField{ (textField) in
-            textField.placeholder = "Building Name"
-            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
-                if textField.text!.count > 0 {
-                    buildingInput = true
-                    if dateInput == true && unitInput == true {
-                        action.isEnabled = true
-                    } else {
-                        action.isEnabled = false
-                    }
-                } else {
-                    buildingInput = false
-                    action.isEnabled = false 
-                }
-            }
-        }
         alert.addTextField { (textField) in
             textField.placeholder = "Date (MM/DD/YYYY)"
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
                 if textField.text!.count == 10 {
                     dateInput = true
-                    if buildingInput == true && unitInput == true {
+                    if unitInput == true {
                         action.isEnabled = true
                     } else {
                         action.isEnabled = false
@@ -178,6 +177,7 @@ class WelcomeTableTableViewController: SwipeTableViewController {
                 }
             }
         }
+        
         alert.addTextField { (textField) in
             textField.placeholder = "Unit Name"
         }
@@ -202,6 +202,8 @@ class WelcomeTableTableViewController: SwipeTableViewController {
         alert.addAction(cancel)
         
         present(alert, animated: true, completion: nil)
+        
+        saveLists()
         
     }
     
@@ -230,7 +232,7 @@ class WelcomeTableTableViewController: SwipeTableViewController {
         //we're going to override and update the superclass method, updateModels(at indexPath:) using the following block of code:
 
         let fetchRequest: NSFetchRequest<Lists> = Lists.fetchRequest()
-        fetchRequest.predicate = NSPredicate.init(format: "buildingName CONTAINS[cd] %@", lists[indexPath.row].buildingName!)
+        fetchRequest.predicate = NSPredicate.init(format: "premises1 CONTAINS[cd] %@", lists[indexPath.row].premises1!)
         let objects = try! context.fetch(fetchRequest)
         for obj in objects {
             context.delete(obj)
@@ -752,37 +754,13 @@ class WelcomeTableTableViewController: SwipeTableViewController {
     
 }
 
-//MARK: - TableView Extensions
-
-extension UITableView {
-
-    func setEmptyMessage(_ message: String) {
-        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
-        messageLabel.text = message
-        messageLabel.textColor = .black
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        messageLabel.font = UIFont(name: "BarlowCondensed-Regular", size: 20)
-        messageLabel.sizeToFit()
-
-        self.backgroundView = messageLabel
-        self.separatorStyle = .none
-    }
-
-    func restore() {
-        self.backgroundView = nil
-        self.separatorStyle = .singleLine
-    }
-    
-}
-
-extension WelcomeTableTableViewController: UISearchBarDelegate {
+extension ListTableViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let request: NSFetchRequest<Lists> = Lists.fetchRequest()
-        let searchPredicate = NSPredicate(format: "buildingName CONTAINS[cd] %@", searchBar.text!)
+        let searchPredicate = NSPredicate(format: "premises1 CONTAINS[cd] %@", searchBar.text!)
         request.predicate = searchPredicate
-        request.sortDescriptors = [NSSortDescriptor(key: "buildingName", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         loadLists(with: request, searchPredicate: searchPredicate)
     }
     
