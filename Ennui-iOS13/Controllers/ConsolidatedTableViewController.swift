@@ -22,11 +22,6 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     var premises5 = [Item]()
     var itemArrays = [[Item]]()
     
-    
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var footerView: UIView!
-    @IBOutlet weak var previewPDF: UIButton!
-    
     var selectedList: Lists? {
         didSet {
             loadItems()
@@ -38,18 +33,7 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        title = selectedList?.buildingName
-        
-        //        let headerView: UIView = UIView.init(frame: CGRect(x: 1, y:50, width: tableView.frame.width, height: 50))
-        //        let labelView: UILabel = UILabel.init(frame: CGRect(x: 4, y: 5, width: headerView.frame.width, height: 24))
-        //        labelView.text = "\(String(describing: selectedList!.buildingName!)) Vacant Unit Checklist, \(selectedList!.date!)"
-        //        headerView.addSubview(labelView)
-        //        tableView.tableHeaderView = headerView
-        
-    
         tableView.register(UINib(nibName: "ItemCell", bundle: nil), forCellReuseIdentifier: "cell")
-        //        scrollToBottom()
-        //        scrollToTop()
     }
 
     
@@ -76,7 +60,7 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
         default:
             break
         }
-        return sectionTitle
+        return "\(selectedList!.buildingName!), \(sectionTitle), \(selectedList!.date!)"
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -254,26 +238,26 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
     }
     
     func createPdfFromTableView() -> NSMutableData {
-        let page = CGRect(x: -25, y: 25, width: 612, height: 792)
-        let pageWithMargin = CGRect(x: 0, y: 0, width: page.width-50, height: page.height-50)
-        let fittedSize = tableView.sizeThatFits(CGSize(width:pageWithMargin.size.width, height:tableView.contentSize.height))
+        let priorBounds = tableView.bounds
+        let fittedSize = tableView.sizeThatFits(CGSize(width:priorBounds.size.width, height:tableView.contentSize.height))
         tableView.bounds = CGRect(x:0, y:0, width:fittedSize.width, height:fittedSize.height)
+        let pdfPageBounds = CGRect(x:0, y:0, width:tableView.frame.width, height:self.view.frame.height)
         let pdfData = NSMutableData()
-        UIGraphicsBeginPDFContextToData(pdfData, page, nil)
+        UIGraphicsBeginPDFContextToData(pdfData, pdfPageBounds,nil)
         var pageOriginY: CGFloat = 0
         while pageOriginY < fittedSize.height {
-            UIGraphicsBeginPDFPageWithInfo(page, nil)
+            UIGraphicsBeginPDFPageWithInfo(pdfPageBounds, nil)
             UIGraphicsGetCurrentContext()!.saveGState()
             UIGraphicsGetCurrentContext()!.translateBy(x: 0, y: -pageOriginY)
             tableView.layer.render(in: UIGraphicsGetCurrentContext()!)
             UIGraphicsGetCurrentContext()!.restoreGState()
-            pageOriginY += page.size.height
+            pageOriginY += pdfPageBounds.size.height
         }
         UIGraphicsEndPDFContext()
-        tableView.bounds = pageWithMargin
+        tableView.bounds = priorBounds
         var docURL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)).last! as URL
-        docURL = docURL.appendingPathComponent("vacantUnitChecklist.pdf")
-        print(docURL)
+        let randomNumber = Int(arc4random_uniform(800000))
+        docURL = docURL.appendingPathComponent("VacantUnitChecklist-\(randomNumber).pdf")
         pdfData.write(to: docURL as URL, atomically: true)
         return pdfData
     }

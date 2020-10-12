@@ -23,10 +23,10 @@ class WelcomeTableTableViewController: SwipeTableViewController {
         super.viewDidLoad()
         searchBar.delegate = self
         loadLists()
+        tableView.sectionHeaderHeight = 20
         tableView.rowHeight = 100
         tableView.register(UINib(nibName: "NewList", bundle: nil), forCellReuseIdentifier: "reusableCell")
         print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
-    
     }
 
     //MARK: - Model Manipulation Methods

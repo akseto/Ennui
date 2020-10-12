@@ -18,12 +18,22 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>PDFGenerator.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
 		<key>Pods-Ennui-iOS13.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>2</integer>
+		</dict>
+		<key>SwiftSignatureView.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>SwipeCellKit.xcscheme</key>
 		<dict>
