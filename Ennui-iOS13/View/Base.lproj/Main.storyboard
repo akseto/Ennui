@@ -73,13 +73,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hUN-pl-HYi" customClass="PDFView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hUN-pl-HYi" customClass="PDFView">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="hUN-pl-HYi" firstAttribute="top" secondItem="FeU-r4-f1Y" secondAttribute="top" id="6un-Iu-UnN"/>
+                            <constraint firstItem="hUN-pl-HYi" firstAttribute="bottom" secondItem="FeU-r4-f1Y" secondAttribute="bottom" id="Ro6-Du-Kdq"/>
+                            <constraint firstItem="hUN-pl-HYi" firstAttribute="trailing" secondItem="FeU-r4-f1Y" secondAttribute="trailing" id="ud3-VJ-IbG"/>
+                            <constraint firstItem="hUN-pl-HYi" firstAttribute="leading" secondItem="FeU-r4-f1Y" secondAttribute="leading" id="yFH-TC-gbN"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="FeU-r4-f1Y"/>
                     </view>
                     <toolbarItems/>
