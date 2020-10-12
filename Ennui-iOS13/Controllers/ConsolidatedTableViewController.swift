@@ -279,16 +279,6 @@ class ConsolidatedTableViewController: UITableViewController, ItemCellTableViewD
 }
 
 extension ConsolidatedTableViewController {
-    func scrollToBottom() {
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.5) {
-                let indexPath = IndexPath(row: self.tableView.numberOfRows(inSection: self.tableView.numberOfSections-1)-1, section: self.tableView.numberOfSections - 1)
-                if self.hasRowAtIndexPath(indexPath: indexPath) {
-                    self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
-                }
-            }
-        }
-    }
     
     func scrollToTop() {
         UIView.animate(withDuration: 0.5) {
@@ -300,9 +290,6 @@ extension ConsolidatedTableViewController {
     func hasRowAtIndexPath(indexPath: IndexPath) -> Bool {
         return indexPath.section < self.tableView.numberOfSections && indexPath.row < self.tableView.numberOfRows(inSection: indexPath.section)
     }
-    
-
-    
 }
 
 extension UITableView {
